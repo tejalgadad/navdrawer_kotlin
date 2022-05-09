@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         findViewById<Button>(R.id.btn_stop).setOnClickListener {
             Toast.makeText(this, "Deactivated", Toast.LENGTH_SHORT).show()
             flag=0
-        }
+        }   
 
         findViewById<Button>(R.id.btn_log_out).setOnClickListener {
             Firebase.auth.signOut()
