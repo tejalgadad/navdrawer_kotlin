@@ -1,10 +1,18 @@
 package com.example.navdrawer_kotlin
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
+import com.example.navdrawer_kotlin.databinding.ActivityHomeBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +29,15 @@ class Information : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var email: EditText
+    private lateinit var name: EditText
+    private lateinit var number: EditText
+    private lateinit var message: EditText
+    private lateinit var del: Button
+    private lateinit var save: Button
+
+    private lateinit var database : DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,7 +51,85 @@ class Information : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_information, container, false)
+        val view= inflater.inflate(R.layout.fragment_information, container, false)
+        email = view.findViewById(R.id.info_email)
+        name = view.findViewById(R.id.info_name)
+        number = view.findViewById(R.id.info_number)
+        message = view.findViewById(R.id.info_message)
+        del = view.findViewById(R.id.info_del)
+        save = view.findViewById(R.id.info_save)
+
+        view.findViewById<Button>(R.id.info_del).setOnClickListener {
+
+        }
+
+        view.findViewById<Button>(R.id.info_save).setOnClickListener {
+            validateEmptyForm()
+        }
+        return view
+    }
+
+    private fun validateEmptyForm() {
+        val icon = AppCompatResources.getDrawable(
+            requireContext(),
+            R.drawable.warning1
+        )
+        icon?.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
+        when {
+            TextUtils.isEmpty(email.text.toString().trim()) -> {
+                email.setError("Please Enter Email ID", icon)
+            }
+            TextUtils.isEmpty(name.text.toString().trim()) -> {
+                name.setError("Please Enter Password", icon)
+            }
+            TextUtils.isEmpty(number.text.toString().trim()) -> {
+                number.setError("Please Enter Phone Number", icon)
+            }
+
+            email.text.toString().isNotEmpty() &&
+                    name.text.toString().isNotEmpty() &&
+                    number.text.toString().isNotEmpty() -> {
+                if (email.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))) {
+                    //if(number.toString().matches(Regex("(0|91)?[7-9][0-9]{9}"))){
+                    save()
+                    Toast.makeText(context,"Done", Toast.LENGTH_SHORT).show()
+                   // }
+//                    else{
+//                        number.setError("Please Enter Valid Phone Number", icon)
+//                    }
+                }
+                else {
+                    email.setError("Please Enter Valid Email ID", icon)
+                }
+            }
+        }
+    }
+
+    private fun save (){
+        Toast.makeText(context,"in save lol",Toast.LENGTH_SHORT).show()
+        val database= FirebaseDatabase.getInstance().getReference("data")
+        //val dataId =database.push().key
+        val data = Database(name.text.toString(), number.text.toString(),
+            email.text.toString(), message.text.toString())
+//        val data = dataId?.let {
+//            Database(
+//                it, name.text.toString(), number.text.toString(),
+//                email.text.toString(), message.text.toString()
+//            )
+//        }
+        database.child(name.text.toString()).setValue(data).addOnCompleteListener{
+            Toast.makeText(context,"Data Saved",Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener{
+            Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
+        }
+//        dataId?.let {
+//            database.child(it).setValue(data).addOnCompleteListener{
+//                Toast.makeText(context,"Data Saved",Toast.LENGTH_SHORT).show()
+//            }.addOnFailureListener{
+//                Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
+//            }
+//        }
+
     }
 
     companion object {

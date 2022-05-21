@@ -108,7 +108,7 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
                 locationPermissionCode
             )
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1f, this)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 60000, 5f, this)
     }
 
 
@@ -156,16 +156,13 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
             }
             R.id.register ->{
                 Toast.makeText(applicationContext,"Register Data",Toast.LENGTH_SHORT).show()
-                changeFragment(Register())
-                // changeFragment(Register())
+                changeFragment(Information())
             }
             R.id.location ->{
                 Toast.makeText(applicationContext,"Location",Toast.LENGTH_SHORT).show()
-                changeFragment(Register())
             }
             R.id.chat ->{
                 Toast.makeText(applicationContext,"Chat",Toast.LENGTH_SHORT).show()
-                changeFragment(Blank())
             }
         }
         return true

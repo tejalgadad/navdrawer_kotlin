@@ -10,6 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Navdrawer_kotlin">
         <activity
+            android:name=".SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="true" >
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.MAIN"
+                    android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
@@ -18,20 +31,13 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN"
-                    android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 </manifest>

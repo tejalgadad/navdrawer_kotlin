@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import com.google.firebase.auth.FirebaseAuth
@@ -34,6 +35,7 @@ class Login : Fragment() {
     private lateinit var password: EditText
     private lateinit var fAuth: FirebaseAuth
     private lateinit var log: Button
+    private lateinit var loadingPB: ProgressBar
 
 
 
@@ -56,6 +58,7 @@ class Login : Fragment() {
         password = view.findViewById(R.id.log_password)
         log = view.findViewById(R.id.btn_login)
         fAuth = Firebase.auth
+        loadingPB = view.findViewById(R.id.idPBLoading)
 
         view.findViewById<Button>(R.id.btn_register).setOnClickListener {
             val navLogin= activity as fragmentNavigation
@@ -69,6 +72,7 @@ class Login : Fragment() {
     }
 
     private fun firebaseSignIn(){
+        loadingPB.visibility=View.VISIBLE
         log.isEnabled = false
         log.alpha = 0.5f
         fAuth.signInWithEmailAndPassword(email.text.toString(),
