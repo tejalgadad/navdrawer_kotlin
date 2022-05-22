@@ -18,20 +18,10 @@
         <ImageView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="35dp"
             android:adjustViewBounds="true"
             android:src="@drawable/logo" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="serif-monospace"
-            android:gravity="center"
-            android:text="REGISTER DETAILS"
-            android:textColor="@color/purple_200"
-            android:textSize="23dp" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -39,7 +29,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/name"
             app:boxBackgroundColor="#FA71EDFD"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             >

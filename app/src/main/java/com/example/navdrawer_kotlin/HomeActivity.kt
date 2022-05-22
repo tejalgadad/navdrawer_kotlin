@@ -1,23 +1,21 @@
 package com.example.navdrawer_kotlin
 
-import android.content.Context
+import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.SmsManager
+import android.view.MenuItem
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.content_main.*
-import androidx.constraintlayout.motion.widget.Debug.getLocation
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import android.Manifest
-import android.content.Intent
-import android.view.MenuItem
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -25,20 +23,24 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavigationItemSelectedListener, fragmentNavigation {
     lateinit var toggle : ActionBarDrawerToggle
     private lateinit var fAuth: FirebaseAuth
+    private lateinit var database : DatabaseReference
     lateinit var locationManager: LocationManager
     val locationPermissionCode = 2
     val permissionRequest = 101
-    val myNumber: Long = 8237827284
-    var myMsg: String = "hi"
+    var myMsg: String = ""
+    var msg:String=""
     var flag: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -66,26 +68,43 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
 
         findViewById<Button>(R.id.btn_stop).setOnClickListener {
             Toast.makeText(this, "Deactivated", Toast.LENGTH_SHORT).show()
-            flag=0
+            flag = 0
         }
 
         }
+    private fun readData(i: Int){
 
-    private fun myMessage() {
-        if (myMsg != "hi") {
-            val smsManager: SmsManager = SmsManager.getDefault()
-            smsManager.sendTextMessage(myNumber.toString(), null, myMsg, null, null)
-            Toast.makeText(this,"Message Sent", Toast.LENGTH_SHORT).show()
+        database = FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
+        ).getReference("data")
+       database.child(i.toString()).get().addOnSuccessListener {
+           val phone =it.child("phone").value
+           val message = it.child("message").value
+           Toast.makeText(this, "successfully read data", Toast.LENGTH_SHORT).show()
+
+           msg = message.toString()+myMsg
+//           myNumber = phone as Long
+           val smsManager: SmsManager = SmsManager.getDefault()
+           smsManager.sendTextMessage(phone.toString(), null, msg, null, null)
+
+       }.addOnFailureListener{
+            Toast.makeText(this, "unable to get data", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun myMessage() {
+        for (i in 1..4){
+            readData(i)
+        }
+        Toast.makeText(this,"Message Sent", Toast.LENGTH_SHORT).show()
+    }
+
     override fun onLocationChanged(location: Location) {
-        myMsg = "http://maps.google.com/?q=" + location.latitude + "," + location.longitude
+        myMsg = " http://maps.google.com/?q=" + location.latitude + "," + location.longitude
 
         val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             if(flag==1){
-                myMessage()
+                    myMessage()
             }
         } else {
             ActivityCompat.requestPermissions(

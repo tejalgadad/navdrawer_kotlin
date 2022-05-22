@@ -36,6 +36,7 @@ class Information : Fragment() {
     private lateinit var del: Button
     private lateinit var save: Button
 
+    private var idnum: Int = 1
     private lateinit var database : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +61,7 @@ class Information : Fragment() {
         save = view.findViewById(R.id.info_save)
 
         view.findViewById<Button>(R.id.info_del).setOnClickListener {
-
+            validateDeleteForm()
         }
 
         view.findViewById<Button>(R.id.info_save).setOnClickListener {
@@ -92,7 +93,6 @@ class Information : Fragment() {
                 if (email.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))) {
                     //if(number.toString().matches(Regex("(0|91)?[7-9][0-9]{9}"))){
                     save()
-                    Toast.makeText(context,"Done", Toast.LENGTH_SHORT).show()
                    // }
 //                    else{
 //                        number.setError("Please Enter Valid Phone Number", icon)
@@ -106,31 +106,51 @@ class Information : Fragment() {
     }
 
     private fun save (){
-        Toast.makeText(context,"in save lol",Toast.LENGTH_SHORT).show()
-        val database= FirebaseDatabase.getInstance().getReference("data")
-        //val dataId =database.push().key
-        val data = Database(name.text.toString(), number.text.toString(),
-            email.text.toString(), message.text.toString())
-//        val data = dataId?.let {
-//            Database(
-//                it, name.text.toString(), number.text.toString(),
-//                email.text.toString(), message.text.toString()
-//            )
-//        }
-        database.child(name.text.toString()).setValue(data).addOnCompleteListener{
-            Toast.makeText(context,"Data Saved",Toast.LENGTH_SHORT).show()
-        }.addOnFailureListener{
-            Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
+        if(idnum>5){
+            Toast.makeText(context,"Only 4 Emergency Contacts Allowed",Toast.LENGTH_SHORT).show()
         }
-//        dataId?.let {
-//            database.child(it).setValue(data).addOnCompleteListener{
-//                Toast.makeText(context,"Data Saved",Toast.LENGTH_SHORT).show()
-//            }.addOnFailureListener{
-//                Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
+        else{
+            database= FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
+            ).getReference("data")
+            //val dataId =database.push().key
+            val data = Database(idnum,name.text.toString(), number.text.toString(),
+                email.text.toString(), message.text.toString())
+            database.child(idnum.toString()).setValue(data).addOnCompleteListener{
+                Toast.makeText(context,"Successfully Saved",Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener{
+                Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
+            }
+            name.text.clear()
+            number.text.clear()
+            email.text.clear()
+            message.text.clear()
+            idnum++
+        }
     }
+
+    private fun validateDeleteForm(){
+        val icon = AppCompatResources.getDrawable(
+            requireContext(),
+            R.drawable.warning1
+        )
+        icon?.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
+        when {
+            TextUtils.isEmpty(name.text.toString().trim()) -> {
+                name.setError("Please Enter Name To Delete Data", icon)
+            }
+            name.text.toString().isNotEmpty()->{
+                val username = name.text.toString()
+                database = FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("data")
+                database.child(username).removeValue().addOnCompleteListener{
+                    Toast.makeText(context,"Successfully Deleted",Toast.LENGTH_SHORT).show()
+                    name.text.clear()
+                }.addOnFailureListener{
+                    Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
 
     companion object {
         /**
