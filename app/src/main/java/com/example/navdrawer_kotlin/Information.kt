@@ -141,12 +141,18 @@ class Information : Fragment() {
             name.text.toString().isNotEmpty()->{
                 val username = name.text.toString()
                 database = FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("data")
-                database.child(username).removeValue().addOnCompleteListener{
-                    Toast.makeText(context,"Successfully Deleted",Toast.LENGTH_SHORT).show()
-                    name.text.clear()
-                }.addOnFailureListener{
-                    Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
-                }
+               for (i in 1..4){
+                   database.child(i.toString()).get().addOnSuccessListener {
+                       if(username==(it.child("name").value).toString()){
+                           database.child(i.toString()).removeValue().addOnCompleteListener{
+                               Toast.makeText(context,"Successfully Deleted",Toast.LENGTH_SHORT).show()
+                               name.text.clear()
+                           }.addOnFailureListener{
+                               Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
+                           }
+                       }
+                   }
+               }
             }
         }
     }
