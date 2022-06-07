@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 
 class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavigationItemSelectedListener, fragmentNavigation {
+    private val path: String = "data"
     lateinit var toggle : ActionBarDrawerToggle
     private lateinit var fAuth: FirebaseAuth
     private lateinit var database : DatabaseReference
@@ -75,11 +76,10 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
     private fun readData(i: Int){
 
         database = FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
-        ).getReference("data")
+        ).getReference(path)
        database.child(i.toString()).get().addOnSuccessListener {
            val phone =it.child("phone").value
            val message = it.child("message").value
-           Toast.makeText(this, "successfully read data", Toast.LENGTH_SHORT).show()
 
            msg = message.toString()+myMsg
 //           myNumber = phone as Long
@@ -168,7 +168,8 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
                 finishAfterTransition()
             }
             R.id.login ->{
-                Toast.makeText(applicationContext,"Login",Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext,"LogOut",Toast.LENGTH_SHORT).show()
+                Firebase.auth.signOut()
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finishAfterTransition()

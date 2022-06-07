@@ -14,11 +14,15 @@
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_home.xml" value="0.14583333333333334" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_information.xml" value="0.2" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_login.xml" value="0.14583333333333334" />
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_login2.xml" value="0.17604166666666668" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_register.xml" value="0.14583333333333334" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/navigation_header.xml" value="0.14583333333333334" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/menu/navigation_menu.xml" value="0.25" />
       </map>
     </option>
+  </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_login2.xml" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

@@ -1,8 +1,9 @@
 package com.example.navdrawer_kotlin
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
-import com.example.navdrawer_kotlin.databinding.ActivityHomeBinding
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
+
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,9 +31,12 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class Information : Fragment() {
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private var path: String=""
 
     private lateinit var email: EditText
     private lateinit var name: EditText
@@ -37,7 +46,12 @@ class Information : Fragment() {
     private lateinit var save: Button
 
     private var idnum: Int = 1
+    private var identity: String = ""
     private lateinit var database : DatabaseReference
+    private lateinit var fAuth: FirebaseAuth
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +59,7 @@ class Information : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        path = Firebase.auth.uid.toString()
     }
 
     override fun onCreateView(
@@ -67,8 +82,18 @@ class Information : Fragment() {
         view.findViewById<Button>(R.id.info_save).setOnClickListener {
             validateEmptyForm()
         }
+
+       setFragmentListener()
         return view
     }
+
+    private fun setFragmentListener() {
+        setFragmentResultListener("logindata") { requestKey, bundle ->
+            val result = bundle.getString("bundlekey")
+            Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     private fun validateEmptyForm() {
         val icon = AppCompatResources.getDrawable(
@@ -106,12 +131,36 @@ class Information : Fragment() {
     }
 
     private fun save (){
-        if(idnum>5){
+
+//        var flag =0
+//        database= FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
+//        ).getReference(path)
+//
+//        Toast.makeText(context,"in save",Toast.LENGTH_SHORT).show()
+//
+//        loo@ for (i in 1..4) {
+//            Toast.makeText(context,"in for loop " + i +" "+idnum,Toast.LENGTH_SHORT).show()
+//
+//            database.child(i.toString()).get().addOnSuccessListener {
+//                if(i.toString()==(it.child("idnum").value).toString()){
+//                    idnum = i
+//                    Toast.makeText(context,idnum,Toast.LENGTH_SHORT).show()
+//                    flag = 1
+//                }
+//            }
+//            if(flag==1){
+//                break@loo
+//            }
+//        }
+//        Toast.makeText(context,"out of loop",Toast.LENGTH_SHORT).show()
+
+
+        if(idnum>4){
             Toast.makeText(context,"Only 4 Emergency Contacts Allowed",Toast.LENGTH_SHORT).show()
         }
         else{
             database= FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
-            ).getReference("data")
+            ).getReference(path)
             //val dataId =database.push().key
             val data = Database(idnum,name.text.toString(), number.text.toString(),
                 email.text.toString(), message.text.toString())
