@@ -31,7 +31,8 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 
 class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavigationItemSelectedListener, fragmentNavigation {
-    private val path: String = "data"
+    private var path: String = ""
+    private var key: String = ""
     lateinit var toggle : ActionBarDrawerToggle
     private lateinit var fAuth: FirebaseAuth
     private lateinit var database : DatabaseReference
@@ -53,8 +54,10 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         nav_menu.setNavigationItemSelectedListener(this)
+        path = Firebase.auth.uid.toString()
 
-       findViewById<Button>(R.id.btn_log_out).setOnClickListener {
+
+        findViewById<Button>(R.id.btn_log_out).setOnClickListener {
            Firebase.auth.signOut()
            val intent = Intent(this, LoginActivity::class.java)
            startActivity(intent)
@@ -74,17 +77,21 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
 
         }
     private fun readData(i: Int){
-
+        var message =""
+        var phone =""
         database = FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
         ).getReference(path)
-       database.child(i.toString()).get().addOnSuccessListener {
-           val phone =it.child("phone").value
-           val message = it.child("message").value
+        key=path+ i.toString()
+       database.child(key).get().addOnSuccessListener {
+           if(it.child("name").value.toString() != "null") {
+              phone = it.child("phone").value.toString()
+              message = it.child("message").value.toString()
+           }
 
-           msg = message.toString()+myMsg
+           msg = message+myMsg
 //           myNumber = phone as Long
            val smsManager: SmsManager = SmsManager.getDefault()
-           smsManager.sendTextMessage(phone.toString(), null, msg, null, null)
+           smsManager.sendTextMessage(phone, null, msg, null, null)
 
        }.addOnFailureListener{
             Toast.makeText(this, "unable to get data", Toast.LENGTH_SHORT).show()
@@ -165,7 +172,7 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
                 Toast.makeText(applicationContext,"Home",Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
-                finishAfterTransition()
+//                finishAfterTransition()
             }
             R.id.login ->{
                 Toast.makeText(applicationContext,"LogOut",Toast.LENGTH_SHORT).show()
@@ -176,9 +183,12 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
             }
             R.id.register ->{
                 Toast.makeText(applicationContext,"Register Data",Toast.LENGTH_SHORT).show()
-                changeFragment(Information())
+                val intent = Intent(this, EmergencyActivity::class.java)
+                startActivity(intent)
+//                finishAfterTransition()
             }
             R.id.location ->{
+
                 Toast.makeText(applicationContext,"Location",Toast.LENGTH_SHORT).show()
             }
             R.id.chat ->{
@@ -217,6 +227,21 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
         supportFragmentManager.executePendingTransactions()
         transaction.commit()
     }
+
+//    override fun onPause() {
+//        super.onPause()
+//        if(flag==1){
+//            getLocation()
+//        }
+//
+//    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        if(flag==1){
+//            getLocation()
+//        }
+//    }
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.navdrawer_kotlin
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -46,6 +47,7 @@ class Information : Fragment() {
     private lateinit var save: Button
 
     private var idnum: Int = 1
+    private var key:String =""
     private var identity: String = ""
     private lateinit var database : DatabaseReference
     private lateinit var fAuth: FirebaseAuth
@@ -83,14 +85,62 @@ class Information : Fragment() {
             validateEmptyForm()
         }
 
-       setFragmentListener()
+
+        val bundle = arguments
+        identity = bundle!!.getString("card").toString()
+
+        setData()
         return view
     }
 
-    private fun setFragmentListener() {
-        setFragmentResultListener("logindata") { requestKey, bundle ->
-            val result = bundle.getString("bundlekey")
-            Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
+    private fun setData() {
+
+        database= FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
+        ).getReference(path)
+
+        if(identity=="card1"){
+            key = path+"1"
+            database.child(key).get().addOnSuccessListener {
+                if(it.child("name").value.toString()!="null"){
+                    name.setText((it.child("name").value).toString())
+                    email.setText((it.child("email").value).toString())
+                    message.setText((it.child("message").value).toString())
+                    number.setText((it.child("phone").value).toString())
+                }
+            }
+        }
+        else if (identity =="card2"){
+            key = path+"2"
+            database.child(key).get().addOnSuccessListener {
+                if (it.child("name").value.toString() != "null") {
+                    name.setText((it.child("name").value).toString())
+                    email.setText((it.child("email").value).toString())
+                    message.setText((it.child("message").value).toString())
+                    number.setText((it.child("phone").value).toString())
+                }
+            }
+        }
+        else if (identity =="card3"){
+            key = path+"3"
+            database.child(key).get().addOnSuccessListener {
+                if (it.child("name").value.toString() != "null") {
+                    name.setText((it.child("name").value).toString())
+                    email.setText((it.child("email").value).toString())
+                    message.setText((it.child("message").value).toString())
+                    number.setText((it.child("phone").value).toString())
+                }
+            }
+        }
+        else if (identity =="card4"){
+            key = path+"4"
+            database.child(key).get().addOnSuccessListener {
+                if (it.child("name").value.toString() != "null") {
+                    name.setText((it.child("name").value).toString())
+                    email.setText((it.child("email").value).toString())
+                    message.setText((it.child("message").value).toString())
+                    number.setText((it.child("phone").value).toString())
+                }
+            }
         }
     }
 
@@ -131,50 +181,21 @@ class Information : Fragment() {
     }
 
     private fun save (){
-
-//        var flag =0
-//        database= FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
-//        ).getReference(path)
-//
-//        Toast.makeText(context,"in save",Toast.LENGTH_SHORT).show()
-//
-//        loo@ for (i in 1..4) {
-//            Toast.makeText(context,"in for loop " + i +" "+idnum,Toast.LENGTH_SHORT).show()
-//
-//            database.child(i.toString()).get().addOnSuccessListener {
-//                if(i.toString()==(it.child("idnum").value).toString()){
-//                    idnum = i
-//                    Toast.makeText(context,idnum,Toast.LENGTH_SHORT).show()
-//                    flag = 1
-//                }
-//            }
-//            if(flag==1){
-//                break@loo
-//            }
-//        }
-//        Toast.makeText(context,"out of loop",Toast.LENGTH_SHORT).show()
-
-
-        if(idnum>4){
-            Toast.makeText(context,"Only 4 Emergency Contacts Allowed",Toast.LENGTH_SHORT).show()
-        }
-        else{
             database= FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
             ).getReference(path)
             //val dataId =database.push().key
-            val data = Database(idnum,name.text.toString(), number.text.toString(),
+            val data = Database(name.text.toString(), number.text.toString(),
                 email.text.toString(), message.text.toString())
-            database.child(idnum.toString()).setValue(data).addOnCompleteListener{
-                Toast.makeText(context,"Successfully Saved",Toast.LENGTH_SHORT).show()
-            }.addOnFailureListener{
-                Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
-            }
-            name.text.clear()
-            number.text.clear()
-            email.text.clear()
-            message.text.clear()
-            idnum++
-        }
+
+            database.child(key).setValue(data).addOnCompleteListener {
+                Toast.makeText(context, "Successfully Saved", Toast.LENGTH_SHORT).show()
+                activity?.let {
+                    val intent = Intent(it, EmergencyActivity::class.java)
+                    it.startActivity(intent)
+                    it.finishAfterTransition()
+                }}.addOnFailureListener {
+                    Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+                }
     }
 
     private fun validateDeleteForm(){
@@ -183,27 +204,24 @@ class Information : Fragment() {
             R.drawable.warning1
         )
         icon?.setBounds(0, 0, icon.intrinsicWidth, icon.intrinsicHeight)
-        when {
-            TextUtils.isEmpty(name.text.toString().trim()) -> {
-                name.setError("Please Enter Name To Delete Data", icon)
-            }
-            name.text.toString().isNotEmpty()->{
-                val username = name.text.toString()
-                database = FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("data")
-               for (i in 1..4){
-                   database.child(i.toString()).get().addOnSuccessListener {
-                       if(username==(it.child("name").value).toString()){
-                           database.child(i.toString()).removeValue().addOnCompleteListener{
-                               Toast.makeText(context,"Successfully Deleted",Toast.LENGTH_SHORT).show()
-                               name.text.clear()
-                           }.addOnFailureListener{
-                               Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
-                           }
-                       }
+            database = FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app").getReference(path)
+
+               database.child(key).get().addOnSuccessListener {
+                   database.child(key).removeValue().addOnCompleteListener{
+                       Toast.makeText(context,"Successfully Deleted",Toast.LENGTH_SHORT).show()
+                       name.text.clear()
+                       number.text.clear()
+                       email.text.clear()
+                       message.text.clear()
+                       activity?.let {
+                           val intent = Intent(it, EmergencyActivity::class.java)
+                           it.startActivity(intent)
+                           it.finishAfterTransition()
+                       } }.addOnFailureListener{
+                       Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
                    }
                }
-            }
-        }
+
     }
 
 

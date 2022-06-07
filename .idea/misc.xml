@@ -4,13 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/drawable/progress_back.xml" value="0.1635" />
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_emergency.xml" value="0.33" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_info.xml" value="0.20833333333333334" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_login.xml" value="0.14719202898550723" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_splash.xml" value="0.25" />
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/card_cell.xml" value="0.33" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/content_main.xml" value="0.16" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_blank.xml" value="0.1703125" />
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_emergency.xml" value="0.25" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_home.xml" value="0.14583333333333334" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_information.xml" value="0.2" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_login.xml" value="0.14583333333333334" />
