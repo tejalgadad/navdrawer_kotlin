@@ -21,18 +21,6 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             startActivity(Intent(this,MainActivity::class.java))
             finish()
-        },3000)
-//        window.setFlags(
-//            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//            WindowManager.LayoutParams.FLAG_FULLSCREEN
-//        )
-//
-//        // we used the postDelayed(Runnable, time) method
-//        // to send a message with a delayed time.
-//        Handler().postDelayed({
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }, 3000) // 3000 is the delayed time in milliseconds.
+        },1000)
     }
 }

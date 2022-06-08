@@ -39,4 +39,5 @@
     <string name="login_failed">"Login failed"</string>
     <string name="contact_name">Contact Name</string>
     <string name="contact_number">Contact Number</string>
+    <string name="title_activity_location">LocationActivity</string>
 </resources>

@@ -8,9 +8,9 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.telephony.SmsManager
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -23,9 +23,9 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -36,12 +36,18 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
     lateinit var toggle : ActionBarDrawerToggle
     private lateinit var fAuth: FirebaseAuth
     private lateinit var database : DatabaseReference
+    private lateinit var databaseS : DatabaseReference
+    private lateinit var databaseD : DatabaseReference
     lateinit var locationManager: LocationManager
     val locationPermissionCode = 2
     val permissionRequest = 101
     var myMsg: String = ""
     var msg:String=""
     var flag: Int = 0
+    var dangerFlag: Int = 0
+    private var serialNo:Long =1
+    var prevNo:Long = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +63,7 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
         path = Firebase.auth.uid.toString()
 
 
+
         findViewById<Button>(R.id.btn_log_out).setOnClickListener {
            Firebase.auth.signOut()
            val intent = Intent(this, LoginActivity::class.java)
@@ -67,47 +74,96 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
         findViewById<Button>(R.id.btn_help).setOnClickListener {
             getLocation()
             Toast.makeText(this, "Activated", Toast.LENGTH_SHORT).show()
+            serialNumber()
             flag = 1
+            dangerFlag = 1
         }
 
         findViewById<Button>(R.id.btn_stop).setOnClickListener {
             Toast.makeText(this, "Deactivated", Toast.LENGTH_SHORT).show()
             flag = 0
         }
+    }
 
+    private fun serialNumber(){
+        databaseS = FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
+        ).getReference("Serial")
+        databaseS.child("number").get().addOnSuccessListener{
+            if(it.value==null){
+                serialNo = 1
+                databaseS.child("number").setValue(serialNo).addOnSuccessListener {
+                }
+                Log.e("null", "null")
+            }
+            else if(it.value !=null){
+                Log.e("no null", "no null")
+                prevNo = it.value as Long
+                serialNo=prevNo +1
+                databaseS.child("number").setValue(serialNo).addOnSuccessListener {
+                }
+            }
+            Log.e("prev", prevNo.toString())
+            Log.e("current", serialNo.toString())
         }
+
+    }
+
     private fun readData(i: Int){
         var message =""
         var phone =""
         database = FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
         ).getReference(path)
         key=path+ i.toString()
+        Log.i("in loop ",i.toString())
+        Log.i("key",key)
+
        database.child(key).get().addOnSuccessListener {
            if(it.child("name").value.toString() != "null") {
-              phone = it.child("phone").value.toString()
-              message = it.child("message").value.toString()
+               Log.i("database", "accessed")
+               phone = it.child("phone").value.toString()
+               message = it.child("message").value.toString()
+               msg = message+myMsg
+               val smsManager: SmsManager = SmsManager.getDefault()
+               smsManager.sendTextMessage(phone, null, msg, null, null)
+               Log.i("msg", "sendingmsg")
+               Log.i("flag", flag.toString())
+               Log.i("phone", phone)
            }
 
-           msg = message+myMsg
-//           myNumber = phone as Long
-           val smsManager: SmsManager = SmsManager.getDefault()
-           smsManager.sendTextMessage(phone, null, msg, null, null)
-
        }.addOnFailureListener{
-            Toast.makeText(this, "unable to get data", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
         }
     }
 
+
+
     private fun myMessage() {
+        Log.i(",message","my message")
+
         for (i in 1..4){
             readData(i)
         }
         Toast.makeText(this,"Message Sent", Toast.LENGTH_SHORT).show()
     }
 
+
     override fun onLocationChanged(location: Location) {
         myMsg = " http://maps.google.com/?q=" + location.latitude + "," + location.longitude
 
+        val loc = LocationLogging(location.latitude,location.longitude )
+        if(dangerFlag==1) {
+            databaseD = FirebaseDatabase.getInstance(
+                "https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
+            ).getReference("Danger")
+            databaseD.child(serialNo.toString()).setValue(loc).addOnCompleteListener {
+                dangerFlag=0
+            }.addOnFailureListener{
+            }
+        }
+
+
+
+        Log.i("location","location changed")
         val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             if(flag==1){
@@ -122,6 +178,7 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
     }
 
     private fun getLocation() {
+        Log.i("location","get location")
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
         if ((ContextCompat.checkSelfPermission(
                 this,
@@ -172,7 +229,6 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
                 Toast.makeText(applicationContext,"Home",Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
-//                finishAfterTransition()
             }
             R.id.login ->{
                 Toast.makeText(applicationContext,"LogOut",Toast.LENGTH_SHORT).show()
@@ -188,8 +244,9 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
 //                finishAfterTransition()
             }
             R.id.location ->{
-
                 Toast.makeText(applicationContext,"Location",Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, LocationActivity::class.java)
+                startActivity(intent)
             }
             R.id.chat ->{
                 Toast.makeText(applicationContext,"Chat",Toast.LENGTH_SHORT).show()
@@ -228,20 +285,19 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
         transaction.commit()
     }
 
-//    override fun onPause() {
-//        super.onPause()
-//        if(flag==1){
-//            getLocation()
-//        }
+    override fun onPause() {
+        super.onPause()
+        Log.i("status","Pause")
+        getLocation()
+    }
+
 //
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        if(flag==1){
-//            getLocation()
-//        }
-//    }
+    override fun onResume() {
+    super.onResume()
+    Log.i("Flag", flag.toString())
+    Log.i("status","RESUME")
+    getLocation()
+    }
 
 
 }

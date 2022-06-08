@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            app:boxBackgroundColor="#FA71EDFD"
+            app:boxBackgroundColor="#00BCD4"
             android:layout_marginTop="50dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            app:boxBackgroundColor="#FA71EDFD"
+            app:boxBackgroundColor="#00BCD4"
             android:layout_marginTop="10dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
@@ -85,11 +85,12 @@
         </RelativeLayout>
 
         <ProgressBar
+            android:id="@+id/idPBLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:id="@+id/idPBLoading"
             android:indeterminate="true"
+            android:layout_marginTop="120dp"
             android:indeterminateDrawable="@drawable/progress_back"
             android:visibility="gone"/>
 
