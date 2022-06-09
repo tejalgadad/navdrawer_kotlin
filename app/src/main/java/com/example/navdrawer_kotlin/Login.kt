@@ -3,6 +3,7 @@ package com.example.navdrawer_kotlin
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +38,6 @@ class Login : Fragment() {
     private lateinit var password: EditText
     private lateinit var fAuth: FirebaseAuth
     private lateinit var log: Button
-    private lateinit var loadingPB: ProgressBar
 
 
 
@@ -60,12 +60,11 @@ class Login : Fragment() {
         password = view.findViewById(R.id.log_password)
         log = view.findViewById(R.id.btn_login)
         fAuth = Firebase.auth
-        loadingPB = view.findViewById(R.id.idPBLoading)
-
-        view.findViewById<Button>(R.id.btn_register).setOnClickListener {
-            val navLogin= activity as fragmentNavigation
-            navLogin.navigateFrag(Register(), false)
-        }
+//
+//        view.findViewById<Button>(R.id.btn_register).setOnClickListener {
+//            val navLogin= activity as fragmentNavigation
+//            navLogin.navigateFrag(Register(), false)
+//        }
 
         view.findViewById<Button>(R.id.btn_login).setOnClickListener {
             validateEmptyForm()
@@ -74,7 +73,6 @@ class Login : Fragment() {
     }
 
     private fun firebaseSignIn(){
-        loadingPB.visibility=View.VISIBLE
         log.isEnabled = false
         log.alpha = 0.5f
         fAuth.signInWithEmailAndPassword(email.text.toString(),
@@ -85,6 +83,7 @@ class Login : Fragment() {
 //                var navHome = activity as  fragmentNavigation
 //                navHome.navigateFrag(homeFragment(), true)
                 activity?.let{
+                    Log.e("LOGIN", "SUCCESSFUL")
                     val intent = Intent (it, MainActivity::class.java)
                     it.startActivity(intent)
                     it.finishAfterTransition() //jhol

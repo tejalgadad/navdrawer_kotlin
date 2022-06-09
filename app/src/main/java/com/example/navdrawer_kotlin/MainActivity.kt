@@ -2,6 +2,7 @@ package com.example.navdrawer_kotlin
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -17,10 +18,12 @@ class MainActivity : AppCompatActivity(), fragmentNavigation{  //LocationListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.e("IN", "MAIN ACTIVITY")
 
         fAuth= Firebase.auth
         val currentUser = fAuth.currentUser
         if(currentUser!=null){
+            Log.e("USER","AUTHORIZED")
 //            supportFragmentManager.beginTransaction()
 //                .add(R.id.drawerLayout,Blank()).addToBackStack(null)
 ////                .commit()
@@ -33,6 +36,7 @@ class MainActivity : AppCompatActivity(), fragmentNavigation{  //LocationListene
 //            supportFragmentManager.beginTransaction()
 //                .add(R.id.drawerLayout,Home()).addToBackStack(null)
 //                .commit()
+            Log.e("USER","UNAUTHORIZED")
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finishAfterTransition()

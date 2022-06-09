@@ -60,10 +60,10 @@ class Register : Fragment() {
         reg = view.findViewById(R.id.btn_register_reg)
 
 
-        view.findViewById<Button>(R.id.btn_login_reg).setOnClickListener {
-            val navRegister= activity as fragmentNavigation
-            navRegister.navigateFrag(Login(), false)
-        }
+//        view.findViewById<Button>(R.id.btn_login_reg).setOnClickListener {
+//            val navRegister= activity as fragmentNavigation
+//            navRegister.navigateFrag(Login(), false)
+//        }
 
         view.findViewById<Button>(R.id.btn_register_reg).setOnClickListener {
             validateEmptyForm()

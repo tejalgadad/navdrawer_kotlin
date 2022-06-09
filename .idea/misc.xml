@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/drawable/button_bg.xml" value="0.115" />
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/drawable/edit_text.xml" value="0.115" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/drawable/progress_back.xml" value="0.1635" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/drawable/vie_bg.xml" value="0.154" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_emergency.xml" value="0.33" />
@@ -11,6 +13,9 @@
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_location.xml" value="0.2" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_main2.xml" value="0.11197916666666667" />
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_sign_in_up.xml" value="0.10552763819095477" />
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_sign_in_up2.xml" value="0.19067028985507245" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/card_cell.xml" value="0.33" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/content_main.xml" value="0.16" />
@@ -18,13 +23,15 @@
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_emergency.xml" value="0.25" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_home.xml" value="0.14583333333333334" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_information.xml" value="0.2" />
-        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_login.xml" value="0.16" />
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_login.xml" value="0.15" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_login2.xml" value="0.17604166666666668" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_onboard1.xml" value="0.22" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_onboard2.xml" value="0.22" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_onboard3.xml" value="0.33" />
-        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_register.xml" value="0.14583333333333334" />
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/fragment_register.xml" value="0.18" />
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/login_tab.xml" value="0.17527173913043478" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/navigation_header.xml" value="0.14583333333333334" />
+        <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/layout/register_tab.xml" value="0.14" />
         <entry key="..\:/mad safety/navdrawer_kotlin/app/src/main/res/menu/navigation_menu.xml" value="0.25" />
       </map>
     </option>
