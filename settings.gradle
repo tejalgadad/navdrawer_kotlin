@@ -5,12 +5,31 @@ pluginManagement {
         mavenCentral()
     }
 }
+
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
     repositories {
         google()
         mavenCentral()
-    }
+            maven { url 'https://jitpack.io' }
+            maven {
+                url 'https://jitpack.io'
+                name = "GitHubPackages"
+
+                url = uri("https://maven.pkg.github.com/Cuberto/liquid-swipe-android")
+                credentials {
+                    /** Create github.properties in root project folder file with
+                     ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
+                     ** Or set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
+                    username = "tejalgadad"
+                    password = "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"
+                }
+            }
+        }
 }
+
+
 rootProject.name = "navdrawer_kotlin"
 include ':app'

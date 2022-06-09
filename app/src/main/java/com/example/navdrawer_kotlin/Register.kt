@@ -82,11 +82,14 @@ class Register : Fragment() {
                 task ->
             if(task.isSuccessful){
                 Toast.makeText(context,"Register Successful",Toast.LENGTH_SHORT).show()
-                activity?.let{
-                    val intent = Intent (it, MainActivity::class.java)
-                    it.startActivity(intent)
-                    it.finishAfterTransition() //jhol
-                }
+//                activity?.let{
+//                    val intent = Intent (it, MainActivity::class.java)
+//                    it.startActivity(intent)
+//                    it.finishAfterTransition() //jhol
+//                }
+
+                val navRegister= activity as fragmentNavigation
+                navRegister.navigateFrag(Login(), false)
             }
             else{
                 reg.isEnabled = true
