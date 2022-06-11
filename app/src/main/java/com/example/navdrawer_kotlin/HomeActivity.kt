@@ -9,31 +9,26 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.telephony.SmsManager
 import android.util.Log
-import android.view.MenuItem
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.google.android.material.navigation.NavigationView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_home.*
 
 
-class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavigationItemSelectedListener, fragmentNavigation {
+class HomeActivity : AppCompatActivity(),LocationListener,  fragmentNavigation {
     private var path: String = ""
     private var key: String = ""
-    lateinit var toggle : ActionBarDrawerToggle
     private lateinit var fAuth: FirebaseAuth
     private lateinit var database : DatabaseReference
     private lateinit var databaseS : DatabaseReference
@@ -52,24 +47,10 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val drawerLayout : DrawerLayout = findViewById(R.id.drawerLayout)
-        val nav_menu : NavigationView = findViewById(R.id.nav_menu)
-        toggle  = ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
-        toggle.isDrawerIndicatorEnabled= true
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        nav_menu.setNavigationItemSelectedListener(this)
         path = Firebase.auth.uid.toString()
+        val name= Firebase.auth.currentUser?.email
 
-
-
-        findViewById<Button>(R.id.btn_log_out).setOnClickListener {
-           Firebase.auth.signOut()
-           val intent = Intent(this, LoginActivity::class.java)
-           startActivity(intent)
-           finishAfterTransition()
-            }
+        findViewById<TextView>(R.id.username).text = name.toString()
 
         findViewById<Button>(R.id.btn_help).setOnClickListener {
             getLocation()
@@ -83,7 +64,49 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
             Toast.makeText(this, "Deactivated", Toast.LENGTH_SHORT).show()
             flag = 0
         }
+
+        val recyclerview = findViewById<RecyclerView>(R.id.rv_1)
+        recyclerview.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        val data = ArrayList<StaticRvModel>()
+
+        data.add(StaticRvModel(R.drawable.homelogo, "Home"))
+        data.add(StaticRvModel(R.drawable.location, "Location"))
+        data.add(StaticRvModel(R.drawable.reg, "Register"))
+        data.add(StaticRvModel(R.drawable.readbooks, "Read"))
+        data.add(StaticRvModel(R.drawable.logout2, "SignOut"))
+      //  val recycleradapter = StaticRvAdapter(data)
+//        recyclerview.adapter = adapter
+        recyclerview?.adapter = StaticRvAdapter(data) { itemDto: StaticRvModel, position: Int ->
+            Log.e("HomeActivity", "Clicked on item  ${itemDto.text} at position $position")
+            if(position==0){
+                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
+            }
+            else if(position ==1){
+                Toast.makeText(this, "Location", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, LocationActivity::class.java)
+                startActivity(intent)
+            }
+            else if(position==2){
+                Toast.makeText(this, "Register", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, EmergencyActivity::class.java)
+                startActivity(intent)
+            }
+            else if(position==3){
+                Toast.makeText(this, "Read Blogs", Toast.LENGTH_SHORT).show()
+//                val intent = Intent(this, LocationActivity::class.java)
+//                startActivity(intent)
+            }
+            else if(position==4){
+                Toast.makeText(this, "SignOut", Toast.LENGTH_SHORT).show()
+                Firebase.auth.signOut()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finishAfterTransition()
+            }
+        }
+
     }
+
 
     private fun serialNumber(){
         databaseS = FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
@@ -221,52 +244,12 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
         }
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        drawerLayout.closeDrawer(GravityCompat.START)
-        when(item.itemId){
-            R.id.home ->
-            {
-                Toast.makeText(applicationContext,"Home",Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.login ->{
-                Toast.makeText(applicationContext,"LogOut",Toast.LENGTH_SHORT).show()
-                Firebase.auth.signOut()
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                finishAfterTransition()
-            }
-            R.id.register ->{
-                Toast.makeText(applicationContext,"Register Data",Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, EmergencyActivity::class.java)
-                startActivity(intent)
-//                finishAfterTransition()
-            }
-            R.id.location ->{
-                Toast.makeText(applicationContext,"Location",Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, LocationActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.chat ->{
-                Toast.makeText(applicationContext,"Chat",Toast.LENGTH_SHORT).show()
-            }
-        }
-        return true
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)){
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    fun changeFragment(frag: Fragment){
-        val fragment = supportFragmentManager.beginTransaction()
-        fragment.replace(R.id.frame_container,frag).commit()
-//        fragment.addToBackStack(frag)
-    }
+//    fun changeFragment(frag: Fragment){
+//        val fragment = supportFragmentManager.beginTransaction()
+//        fragment.replace(R.id.frame_container,frag).commit()
+////        fragment.addToBackStack(frag)
+//    }
 
     override fun navigateFrag(fragment: Fragment, addToStack: Boolean) {
         val transaction = supportFragmentManager
@@ -291,13 +274,15 @@ class HomeActivity : AppCompatActivity(),LocationListener, NavigationView.OnNavi
         getLocation()
     }
 
-//
+
     override fun onResume() {
     super.onResume()
     Log.i("Flag", flag.toString())
     Log.i("status","RESUME")
     getLocation()
     }
+
+
 
 
 }

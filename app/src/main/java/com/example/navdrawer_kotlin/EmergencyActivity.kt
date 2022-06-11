@@ -1,15 +1,10 @@
 package com.example.navdrawer_kotlin
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -18,9 +13,8 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_emergency.*
 
 
-class EmergencyActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class EmergencyActivity : AppCompatActivity(){ //, NavigationView.OnNavigationItemSelectedListener {
 
-    lateinit var toggle : ActionBarDrawerToggle
     private var path: String=""
     private lateinit var database : DatabaseReference
     private lateinit var fAuth: FirebaseAuth
@@ -76,15 +70,6 @@ class EmergencyActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
         setData()
 
-        val drawerLayout : DrawerLayout = findViewById(R.id.drawerLayout3)
-        val nav_menu_e : NavigationView = findViewById(R.id.nav_menu_emergency)
-        toggle  = ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
-        toggle.isDrawerIndicatorEnabled= true
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        nav_menu_e.setNavigationItemSelectedListener(this)
-
     }
 
     private fun setData() {
@@ -121,46 +106,6 @@ class EmergencyActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     card_num4.setText((it.child("phone").value).toString())
                 }
             }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        //drawerLayout.closeDrawer(GravityCompat.START)
-        when(item.itemId){
-            R.id.home ->
-            {
-                Toast.makeText(applicationContext,"Home", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                //finishAfterTransition()
-            }
-            R.id.login ->{
-                Toast.makeText(applicationContext,"LogOut", Toast.LENGTH_SHORT).show()
-                Firebase.auth.signOut()
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                finishAfterTransition()
-            }
-            R.id.register ->{
-                Toast.makeText(applicationContext,"Register Data", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, EmergencyActivity::class.java)
-                startActivity(intent)
-                //inishAfterTransition()
-            }
-            R.id.location ->{
-                Toast.makeText(applicationContext,"Location", Toast.LENGTH_SHORT).show()
-            }
-            R.id.chat ->{
-                Toast.makeText(applicationContext,"Chat", Toast.LENGTH_SHORT).show()
-            }
-        }
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)){
-            return true
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     fun changeFragment_e(frag: Fragment){
