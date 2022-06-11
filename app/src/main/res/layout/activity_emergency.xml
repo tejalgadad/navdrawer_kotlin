@@ -5,7 +5,7 @@
     android:id="@+id/drawerLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B1EBF3"
+    android:background="@color/white"
     tools:context=".EmergencyActivity">
 
     <FrameLayout
@@ -13,269 +13,311 @@
         android:layout_height="match_parent"
         android:id="@+id/frame_container_e">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/textView3"
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="811dp"
+        android:layout_height="0dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintHeight_percent="0.27"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center_horizontal"
-        android:text="EMERGENCY CONTACTS"
-        android:textSize="25sp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/white"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="0dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintHeight_percent="0.78"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/vie_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="0dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card1"
-        android:layout_width="match_parent"
-        android:layout_height="119dp"
-        android:layout_margin="20dp"
-        android:background="@color/white"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="7dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card1"
+            android:layout_width="169dp"
+            android:layout_height="161dp"
+            android:layout_margin="20dp"
+            android:background="@color/white"
+            android:backgroundTint="#E8E1E1"
+            android:clickable="true"
+            android:focusable="true"
+            android:outlineSpotShadowColor="@color/black"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.128">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/logo" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:layout_marginTop="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="43dp"
+                    android:layout_gravity="center"
+                    android:text=" Contact 1 "
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="#C8CBCC"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/card_name1"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="sans-serif-light"
-                    android:hint="@string/contact_name"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/text"
+                    android:hint=" Contact Name "
+                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textColorHint="#C8CBCC"
-                    android:textSize="15dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/card_num1"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:textSize="17dp"
-                    android:fontFamily="sans-serif-light"
-                    android:hint="@string/contact_number"
+                    android:background="@drawable/text"
+                    android:hint=" Contact Number "
+                    android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textColorHint="#C8CBCC" />
+                    android:textColorHint="#C8CBCC"
+                    android:textSize="16sp" />
 
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card2"
+            android:layout_width="169dp"
+            android:layout_height="161dp"
+            android:layout_margin="20dp"
+            android:backgroundTint="#E4D7D7"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.692"
+            app:layout_constraintStart_toEndOf="@+id/card1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.376">
 
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card2"
-        android:layout_width="match_parent"
-        android:layout_height="119dp"
-        android:layout_margin="20dp"
-        android:background="@color/white"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="7dp" >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/logo" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:layout_marginTop="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="43dp"
+                    android:layout_gravity="center"
+                    android:text=" Contact 2 "
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="#C8CBCC"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
 
                 <TextView
                     android:id="@+id/card_name2"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="20dp"
-                    android:textSize="17dp"
-                    android:fontFamily="sans-serif-light"
-                    android:hint="@string/contact_name"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/text"
+                    android:hint=" Contact Name "
+                    android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textColorHint="#C8CBCC"/>
+                    android:textColorHint="#C8CBCC"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/card_num2"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:textSize="17dp"
-                    android:fontFamily="sans-serif-light"
-                    android:hint="@string/contact_number"
+                    android:background="@drawable/text"
+                    android:hint=" Contact Number "
+                    android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textColorHint="#C8CBCC"/>
+                    android:textColorHint="#C8CBCC"
+                    android:textSize="16sp" />
 
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card3"
+            android:layout_width="169dp"
+            android:layout_height="161dp"
+            android:layout_margin="20dp"
+            android:background="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:backgroundTint="#D1C8C8"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card1"
+            app:layout_constraintVertical_bias="0.247">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card3"
-        android:layout_width="match_parent"
-        android:layout_height="119dp"
-        android:layout_margin="20dp"
-        android:background="@color/white"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="7dp" >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/logo" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:layout_marginTop="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="43dp"
+                    android:layout_gravity="center"
+                    android:text=" Contact 3 "
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="#C8CBCC"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/card_name3"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="20dp"
-                    android:textSize="17dp"
-                    android:fontFamily="sans-serif-light"
-                    android:hint="@string/contact_name"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/text"
+                    android:hint=" Contact Name "
+                    android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textColorHint="#C8CBCC"/>
+                    android:textColorHint="#C8CBCC"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/card_num3"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:textSize="17dp"
-                    android:fontFamily="sans-serif-light"
-                    android:hint="@string/contact_number"
+                    android:background="@drawable/text"
+                    android:hint=" Contact Number "
+                    android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textColorHint="#C8CBCC"/>
+                    android:textColorHint="#C8CBCC"
+                    android:textSize="16sp" />
 
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card4"
+            android:layout_width="169dp"
+            android:layout_height="161dp"
+            android:layout_margin="20dp"
+            android:backgroundTint="#BDACAC"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="7dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.627"
+            app:layout_constraintStart_toEndOf="@+id/card3"
+            app:layout_constraintTop_toBottomOf="@+id/card2"
+            app:layout_constraintVertical_bias="0.654">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card4"
-        android:layout_width="match_parent"
-        android:layout_height="119dp"
-        android:layout_margin="20dp"
-        android:background="@color/white"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="7dp" >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/logo" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:layout_marginTop="5dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
                 android:orientation="vertical">
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="43dp"
+                    android:layout_gravity="center"
+                    android:text=" Contact 4 "
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="#C8CBCC"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
 
                 <TextView
                     android:id="@+id/card_name4"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="20dp"
-                    android:textSize="17dp"
-                    android:fontFamily="sans-serif-light"
-                    android:hint="@string/contact_name"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/text"
+                    android:hint=" Contact Name "
+                    android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textColorHint="#C8CBCC"/>
+                    android:textColorHint="#C8CBCC"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/card_num4"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_height="30sp"
+                    android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:textSize="17dp"
-                    android:fontFamily="sans-serif-light"
-                    android:hint="@string/contact_number"
+                    android:background="@drawable/text"
+                    android:hint=" Contact Name "
+                    android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textColorHint="#C8CBCC"/>
+                    android:textColorHint="#C8CBCC"
+                    android:textSize="16sp" />
 
             </LinearLayout>
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-    </androidx.cardview.widget.CardView>
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
-
-
-<!--    <com.google.android.material.navigation.NavigationView-->
-<!--        android:id="@+id/nav_menu_emergency"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_gravity="start"-->
-<!--        android:background="@color/purple_200"-->
-<!--        android:fitsSystemWindows="true"-->
-<!--        app:headerLayout="@layout/navigation_header"-->
-<!--        app:menu="@menu/navigation_menu">-->
-<!--    </com.google.android.material.navigation.NavigationView>-->
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,111 +7,173 @@
     android:background="@drawable/white"
     tools:context=".Information">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="811dp"
+        android:layout_height="0dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintHeight_percent="0.27"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical" >
+        android:layout_height="0dp"
+        android:background="@drawable/vie_bg"
+        app:layout_constrainedWidth="true"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintHeight_percent="0.78"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
 
-        <ImageView
-            android:layout_width="150dp"
+        <EditText
+            android:id="@+id/info_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/logo" />
+            android:background="@drawable/edit_text"
+            android:hint="Name"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColorHint="#757575"
+            android:textColor="@color/black"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.121"
+            app:layout_constraintWidth_percent=".8" />
 
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@id/info_number"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/name"
-            app:boxBackgroundColor="#FA71EDFD"
-            android:layout_marginTop="40dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/info_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_text"
+            android:hint="Phone Number"
+            android:inputType="phone"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/black"
+            android:paddingBottom="10dp"
+            android:textColorHint="#757575"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_name"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintWidth_percent=".8" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/info_email"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/phone_number"
-            app:boxBackgroundColor="#FA71EDFD"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/info_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_text"
+            android:hint="Email ID"
+            android:textColor="@color/black"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColorHint="#757575"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_number"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintWidth_percent=".8" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/info_message"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/email_id"
-            app:boxBackgroundColor="#FA71EDFD"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/info_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_text"
+            android:hint="Message"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColorHint="#757575"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_email"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintWidth_percent=".8" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/message"
-            app:boxBackgroundColor="#FA71EDFD"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/info_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/info_save"
+        android:layout_width="149dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_bg"
+        android:text="Save"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.893"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_message"
+        app:layout_constraintVertical_bias="0.518"
+        app:layout_constraintWidth_percent=".8" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp">
+        <Button
+            android:id="@+id/info_del"
+            android:layout_width="149dp"
+            android:layout_height="48dp"
+            android:background="@drawable/button_bg"
+            android:text="Delete"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/info_save"
+            app:layout_constraintHorizontal_bias="0.326"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_message"
+            app:layout_constraintVertical_bias="0.518"
+            app:layout_constraintWidth_percent=".8" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/info_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="40dp"
-                android:text="@string/save"
-                android:textColor="@color/design_default_color_background" />
+        <Button
+            android:id="@+id/info_back"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:background="@drawable/back_bg"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:shadowRadius="40"
+            android:text="B A C K"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:cornerRadius="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.953"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.968" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/info_del"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="123dp"
-                android:layout_toStartOf="@id/info_save"
-                android:text="@string/delete" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-</androidx.drawerlayout.widget.DrawerLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

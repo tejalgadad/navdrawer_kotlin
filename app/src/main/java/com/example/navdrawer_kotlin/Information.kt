@@ -81,6 +81,14 @@ class Information : Fragment() {
             validateDeleteForm()
         }
 
+        view.findViewById<Button>(R.id.info_back).setOnClickListener {
+            activity?.let{
+                    val intent = Intent (it, EmergencyActivity::class.java)
+                    it.startActivity(intent)
+                    it.finishAfterTransition() //jhol
+                }
+        }
+
         view.findViewById<Button>(R.id.info_save).setOnClickListener {
             validateEmptyForm()
         }
