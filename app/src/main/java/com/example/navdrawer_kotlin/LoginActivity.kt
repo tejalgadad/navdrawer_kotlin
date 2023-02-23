@@ -31,23 +31,6 @@ class LoginActivity : AppCompatActivity(){
         viewPager.startAnimation(fadeAnimation)
     }
 
-//    override fun navigateFrag(fragment: Fragment, addToStack: Boolean) {
-//        val transaction = supportFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.drawerLayout2,fragment)
-//
-//        if(addToStack){
-//            transaction.addToBackStack(null)
-//        }
-//        else {
-//            supportFragmentManager.popBackStack(null,
-//                FragmentManager.POP_BACK_STACK_INCLUSIVE)
-//
-//        }
-//        supportFragmentManager.executePendingTransactions()
-//        transaction.commit()
-//    }
-
 
     class ScreenSlidePageAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
         private val total:Int = 3

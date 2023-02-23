@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+
 import androidx.fragment.app.setFragmentResultListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -82,14 +83,14 @@ class Register : Fragment() {
                 task ->
             if(task.isSuccessful){
                 Toast.makeText(context,"Register Successful",Toast.LENGTH_SHORT).show()
-//                activity?.let{
-//                    val intent = Intent (it, MainActivity::class.java)
-//                    it.startActivity(intent)
-//                    it.finishAfterTransition() //jhol
-//                }
+                activity?.let{
+                    val intent = Intent (it, SignInUp::class.java)
+                    it.startActivity(intent)
+                    it.finishAfterTransition() //jhol
+                }
 
-                val navRegister= activity as fragmentNavigation
-                navRegister.navigateFrag(Login(), false)
+//                val navRegister= activity as fragmentNavigation
+//                navRegister.navigateFrag(Login(), false)
             }
             else{
                 reg.isEnabled = true
@@ -124,16 +125,17 @@ class Register : Fragment() {
                     cnfPassword.text.toString().isNotEmpty() ->
             {
                 if(email.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))){
-                    if(password.text.toString().length>=5){
+                    if(password.text.toString().length>=6){
                         if(password.text.toString() == cnfPassword.text.toString()){
                             firebaseSignUp()
+
                         }
                         else{
                             cnfPassword.setError("Password Didn't Match", icon)
                         }
                     }
                     else{
-                        password.setError("Please Enter Atleast 5 Characters",icon)
+                        password.setError("Please Enter Atleast 6 Characters",icon)
                     }
 
                 }

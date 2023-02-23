@@ -93,8 +93,8 @@ class HomeActivity : AppCompatActivity(),LocationListener,  fragmentNavigation {
             }
             else if(position==3){
                 Toast.makeText(this, "Read Blogs", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this, LocationActivity::class.java)
-//                startActivity(intent)
+                val intent = Intent(this, ReadActivity::class.java)
+                startActivity(intent)
             }
             else if(position==4){
                 Toast.makeText(this, "SignOut", Toast.LENGTH_SHORT).show()

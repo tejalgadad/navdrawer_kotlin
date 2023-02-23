@@ -17,7 +17,9 @@ class LoginAdapter(private val myContext: Context, fm: FragmentManager, internal
             1 -> {
                 return Register()
             }
-            else -> return Login()
+            else -> {
+                return Login()
+            }
         }
     }
 

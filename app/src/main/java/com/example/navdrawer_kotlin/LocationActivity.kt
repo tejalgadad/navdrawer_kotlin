@@ -81,8 +81,8 @@ class LocationActivity : AppCompatActivity(), OnMapReadyCallback {
                     val location = locationResult.lastLocation
                     if(location!=null){
                         val latLng = LatLng(location.latitude,location.longitude)
-                        val markerOptions = MarkerOptions().position(latLng)
-                        mMap.addMarker(markerOptions)
+//                        val markerOptions = MarkerOptions().position(latLng)
+//                        mMap.addMarker(markerOptions)
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,20f))
                     }
                 }

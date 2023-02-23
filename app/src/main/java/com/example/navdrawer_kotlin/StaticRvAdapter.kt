@@ -17,11 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
         var root:Int = -1
 
 
-
 //        interface onItemClickListener{
 //            fun onItemClick(position: Int)
 //        }
-//
 //        fun setOnItemClickListener(listener: onItemClickListener){
 //            mListener = listener
 //            Log.e("pos","hi")
