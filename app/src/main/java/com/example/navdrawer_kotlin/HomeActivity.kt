@@ -19,11 +19,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.navdrawer_kotlin.model.ChatMessage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+
 
 
 class HomeActivity : AppCompatActivity(),LocationListener,  fragmentNavigation {
@@ -41,7 +43,13 @@ class HomeActivity : AppCompatActivity(),LocationListener,  fragmentNavigation {
     var myMsg: String = ""
     var msg:String=""
     var flag: Int = 0
+    var communityFlag: Int = 0
+
     var dangerFlag: Int = 0
+    var ok: Int = 0
+
+    var panic: Int = 0
+
     private var serialNo:Long =1
     var prevNo:Long = 0
 
@@ -60,13 +68,26 @@ class HomeActivity : AppCompatActivity(),LocationListener,  fragmentNavigation {
             Toast.makeText(this, "Activated", Toast.LENGTH_SHORT).show()
             serialNumber()
             flag = 1
+            communityFlag=1
             dangerFlag = 1
         }
-
+        findViewById<Button>(R.id.btn_panic).setOnClickListener {
+            getLocation()
+            Toast.makeText(this, "Activated", Toast.LENGTH_SHORT).show()
+            panic=1
+        }
+        findViewById<Button>(R.id.btn_ok).setOnClickListener {
+            getLocation()
+            Toast.makeText(this, "Activated", Toast.LENGTH_SHORT).show()
+            ok=1
+        }
         findViewById<Button>(R.id.btn_stop).setOnClickListener {
             Toast.makeText(this, "Deactivated", Toast.LENGTH_SHORT).show()
             flag = 0
         }
+
+
+
 
         val recyclerview = findViewById<RecyclerView>(R.id.rv_1)
         recyclerview.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
@@ -155,6 +176,14 @@ class HomeActivity : AppCompatActivity(),LocationListener,  fragmentNavigation {
                phone = it.child("phone").value.toString()
                message = it.child("message").value.toString()
                msg = message+myMsg
+               if (panic ==1){
+                   msg= "Just being cautious" +myMsg
+                   panic=0
+               }
+               else if (ok ==1){
+                   msg= "I am okay donot worry" +myMsg
+                   ok=0
+               }
                val smsManager: SmsManager = SmsManager.getDefault()
                smsManager.sendTextMessage(phone, null, msg, null, null)
                Log.i("msg", "sendingmsg")
@@ -198,8 +227,8 @@ class HomeActivity : AppCompatActivity(),LocationListener,  fragmentNavigation {
         Log.i("location","location changed")
         val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            if(flag==1){
-                    myMessage()
+            if(flag==1 || panic==1 || ok==1){
+                myMessage()
             }
         } else {
             ActivityCompat.requestPermissions(
@@ -207,6 +236,26 @@ class HomeActivity : AppCompatActivity(),LocationListener,  fragmentNavigation {
                 permissionRequest
             )
         }
+
+        if(communityFlag==1){
+            val reference =
+                FirebaseDatabase.getInstance("https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app")
+                    .getReference("messages").push()
+            val text = "Please help if you can "+myMsg
+            val toId=""
+            val fromId = FirebaseAuth.getInstance().uid
+            val chatMessage =
+                fromId?.let {
+                    ChatMessage(reference.key!!, text,
+                        it, toId, System.currentTimeMillis() / 1000)
+                }
+            reference.setValue(chatMessage)
+                .addOnSuccessListener {
+                    Log.d(ChatLogActivity.TAG, "Saved our chat message: ${reference.key}")
+                }
+            communityFlag=0
+        }
+
     }
 
     private fun getLocation() {

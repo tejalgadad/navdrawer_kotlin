@@ -27,11 +27,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
         <ImageView
             android:id="@+id/imageView3"
-            android:clickable="true"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:clickable="true"
+            android:contentDescription="@string/Login"
             android:src="@drawable/female_user"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,8 +67,8 @@
             android:background="@drawable/vie_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:layout_editor_absoluteX="0dp">
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="-16dp">
 
             <Button
                 android:id="@+id/btn_help"
@@ -84,10 +86,32 @@
                 app:cornerRadius="100dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintHorizontal_bias="0.146"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.319" />
+                app:layout_constraintVertical_bias="0.276" />
+
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/ok_bg"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:shadowRadius="40"
+                android:text="O K"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:cornerRadius="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.907"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.41" />
+
 
             <Button
                 android:id="@+id/btn_stop"
@@ -105,10 +129,31 @@
                 app:cornerRadius="100dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.83"
+                app:layout_constraintHorizontal_bias="0.688"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.623" />
+                app:layout_constraintVertical_bias="0.592" />
+
+            <Button
+                android:id="@+id/btn_panic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/panic_bg"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:shadowRadius="40"
+                android:text="P A N I C"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:cornerRadius="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.825"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.134" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_1"
@@ -122,9 +167,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_help"
                 app:layout_constraintVertical_bias="1.0" />
-
-
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

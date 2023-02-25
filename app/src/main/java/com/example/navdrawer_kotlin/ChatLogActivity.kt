@@ -27,6 +27,8 @@ class ChatLogActivity : AppCompatActivity() {
     val adapter = GroupAdapter<ViewHolder>()
     private lateinit var database : DatabaseReference
     private lateinit var databaseN : DatabaseReference
+    var toId= ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,12 +98,12 @@ class ChatLogActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance(
             "https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
         ).getReference("TOID")
-        var toId= ""
-        database.child("value").get().addOnSuccessListener {
+        database.child("value").child("uid").get().addOnSuccessListener {
             if (it.value != null) {
                 toId = it.value.toString()
             }
         }
+        Log.i("id",toId.toString())
 
 
 
