@@ -11,10 +11,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import com.example.navdrawer_kotlin.model.User
 
-import androidx.fragment.app.setFragmentResultListener
+
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,8 +42,17 @@ class Register : Fragment() {
     private lateinit var reg: Button
     private lateinit var fAuth: FirebaseAuth
 
+    private lateinit var databaseU : DatabaseReference
+    private lateinit var databaseN : DatabaseReference
+
+    private var key:String =""
+    private var usernum: Long = 1
+    var prevNo:Long = 0
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -83,6 +95,46 @@ class Register : Fragment() {
                 task ->
             if(task.isSuccessful){
                 Toast.makeText(context,"Register Successful",Toast.LENGTH_SHORT).show()
+
+                key = Firebase.auth.uid.toString()
+
+                databaseN = FirebaseDatabase.getInstance(
+                    "https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
+                ).getReference("UserNum")
+
+                databaseN.child("number").get().addOnSuccessListener {
+                    if (it.value == null) {
+                        usernum = 1
+                        databaseN.child("number").setValue(usernum).addOnSuccessListener {
+                        }
+                    } else if (it.value != null) {
+                        prevNo = it.value as Long
+                        usernum =prevNo +1
+                        databaseN.child("number").setValue(usernum).addOnSuccessListener {
+                        }.addOnFailureListener {
+                            Toast.makeText(context,"Bitch",Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    databaseU = FirebaseDatabase.getInstance(
+                        "https://womansafety-336317-default-rtdb.asia-southeast1.firebasedatabase.app"
+                    ).getReference("User").child(usernum.toString())
+                    val user = User(key, username.text.toString())
+                    databaseU.setValue(user).addOnCompleteListener {
+
+                    }.addOnFailureListener {
+                    }
+
+                }
+
+
+
+//                database.child(key).setValue(username.text.toString()).addOnCompleteListener {
+//                    Toast.makeText(context, "Successfully Saved", Toast.LENGTH_SHORT).show()
+//                }.addOnFailureListener {
+//                    Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+//                }
+
                 activity?.let{
                     val intent = Intent (it, SignInUp::class.java)
                     it.startActivity(intent)
@@ -127,7 +179,11 @@ class Register : Fragment() {
                 if(email.text.toString().matches(Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"))){
                     if(password.text.toString().length>=6){
                         if(password.text.toString() == cnfPassword.text.toString()){
+
                             firebaseSignUp()
+
+
+
 
                         }
                         else{

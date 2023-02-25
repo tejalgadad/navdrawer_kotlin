@@ -10,10 +10,24 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+
+        <activity
+            android:name=".ChatLogActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".CommunityActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ReadActivity"
-            android:exported="false" />
-        <!-- tools:replace="android:appComponentFactory"> -->
+            android:exported="false" /> <!-- tools:replace="android:appComponentFactory"> -->
         <activity
             android:name=".SignInUp"
             android:exported="false"
@@ -65,11 +79,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCszQxCELRA1X-ItaVhq4JjCtseViQ7RDw" />
     </application>
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>

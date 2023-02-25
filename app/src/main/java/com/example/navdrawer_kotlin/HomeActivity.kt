@@ -29,6 +29,8 @@ import com.google.firebase.ktx.Firebase
 class HomeActivity : AppCompatActivity(),LocationListener,  fragmentNavigation {
     private var path: String = ""
     private var key: String = ""
+    private var userid: String = ""
+
     private lateinit var fAuth: FirebaseAuth
     private lateinit var database : DatabaseReference
     private lateinit var databaseS : DatabaseReference
@@ -48,6 +50,7 @@ class HomeActivity : AppCompatActivity(),LocationListener,  fragmentNavigation {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         path = Firebase.auth.uid.toString()
+        userid = path
         val name= Firebase.auth.currentUser?.email
 
         findViewById<TextView>(R.id.username).text = name.toString()
@@ -73,6 +76,7 @@ class HomeActivity : AppCompatActivity(),LocationListener,  fragmentNavigation {
         data.add(StaticRvModel(R.drawable.location, "Location"))
         data.add(StaticRvModel(R.drawable.reg, "Register"))
         data.add(StaticRvModel(R.drawable.readbooks, "Read"))
+        data.add(StaticRvModel(R.drawable.ic_baseline_message_24, "Community"))
         data.add(StaticRvModel(R.drawable.logout2, "SignOut"))
       //  val recycleradapter = StaticRvAdapter(data)
 //        recyclerview.adapter = adapter
@@ -97,6 +101,11 @@ class HomeActivity : AppCompatActivity(),LocationListener,  fragmentNavigation {
                 startActivity(intent)
             }
             else if(position==4){
+                Toast.makeText(this, "Community", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, CommunityActivity::class.java)
+                startActivity(intent)
+            }
+            else if(position==5){
                 Toast.makeText(this, "SignOut", Toast.LENGTH_SHORT).show()
                 Firebase.auth.signOut()
                 val intent = Intent(this, LoginActivity::class.java)
